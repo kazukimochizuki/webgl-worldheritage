@@ -1,0 +1,382 @@
+<!DOCTYPE HTML>
+<html lang="ja">
+  <head>
+    <title>WebGL世界遺産</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link href='http://fonts.googleapis.com/css?family=Quantico' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="css/introjs.css">
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+
+<div id="webgl_wrapper">
+
+  <pre>
+    <div id="out"></div>
+  </pre>
+  
+  
+  <div id="intro1" data-intro="世界遺産の情報をWebGLで可視化しました。<br>1990年、2000年、2015年時点でのデータを比較できます。<br><br>架空のテレビ番組「データから見る世界遺産
+  」をクライアントとしています。" data-step="1"></div>
+  
+  <div id="intro2" data-intro="各々のバーが世界遺産ひとつひとつのデータを持っています。<br><br>「高さ」は登録からの経過年数「色」は以下のカテゴリーを表しています。<br><br>
+  <span1>Green : 自然遺産</span1><br>
+  <span2>Blue : 文化遺産</span2><br>
+  <span3>Purple : 複合遺産</span3><br>
+  <span4>Red : 危機遺産</span4>" data-step="2" data-position="right" data-tooltipclass="min-width:300px;"></div>
+  
+  <div id="container"></div>
+  
+  
+  <div id="instagram" data-intro="instagramから世界遺産の写真を集めたおまけコンテンツです。" data-step="5" data-position="left">
+    <a href="http://mo49.tokyo/webgl-world-heritage/instagram/" target="_blank" onClick="sound()">
+      <img src="imgs/instagram.png" width="150px">
+    </a>
+  </div>
+  
+  
+  <div id="currentInfo">
+    <span class="sounds" data-file="hover"><span id="year1990" class="year">1990</span></span>
+    <span class="sounds" data-file="hover"><span id="year2000" class="year">2000</span></span>
+    <span class="sounds" data-file="hover"><span id="year2015" class="year">2015</span></span>
+  </div>
+  
+  <div id="title">
+    <img src="imgs/title.png" width="200px">
+  </div>
+  
+  <div id="hulu" data-intro="地球儀の周りに浮いているポップアップから番組アーカイブにアクセスできます。（リンク先は有料動画サイト「hulu」）<br><br>こちらをクリックすると、ポップアップの表示・非表示を切り替えられます。" data-step="4" data-position="top" onClick="sound_hulu()">
+  <img src="imgs/new_logo.png" width="126" height="64" >
+  </div>
+  
+  <audio id="sound-file" preload="auto" style="display:none;">
+    <source src="sounds/enter.mp3" type="audio/mp3" style="display:none;">
+    <source src="sounds/enter.wav" type="audio/wav" style="display:none;">
+  </audio>
+  
+  <audio id="sound-file2" preload="auto" style="display:none;">
+    <source src="sounds/button41.mp3" type="audio/mp3" style="display:none;">
+  </audio>
+  
+  <div id="bgm-container" data-intro="BGMが流れます。" data-step="3" data-position="left">
+    <div id="bgm_btn" style="width:40px;">
+      <img id="bgm_btn_off" src="imgs/bgm_off.png" style="width:40px;">
+      <img id="bgm_btn_on" src="imgs/bgm_on.png" style="width:40px;">
+    </div>
+  </div>
+  
+  <audio id="bgm">
+    <source src="sounds/bgm.mp3" type="audio/mp3" controls>
+  </audio>
+  
+  <audio id="endRoll_bgm1">
+    <source src="sounds/Dance Of The Sugar Plum Fairies (by Tchaikovsky).mp3" type="audio/mp3" controls>
+  </audio>
+  <audio id="endRoll_bgm2">
+    <source src="sounds/Canon in D Major.mp3" type="audio/mp3" controls>
+  </audio>
+  
+  <div id="introjs">
+    <p>▶操作ナビを見る</p>
+  </div>
+  
+  <div id="num1990">
+    <div id="num1990_1" style="display:none;">
+      <img src="imgs/num1990_1.png" height="200" width="400">
+    </div>
+    <div id="num1990_2" style="display:none;">
+      <img src="imgs/num1990_2.png" height="200" width="400">
+    </div>
+    <div id="num1990_3" style="display:none;">
+      <img src="imgs/num1990_3.png" height="200" width="400">
+    </div>
+  </div>
+  
+  <div id="num2000">
+    <div id="num2000_1" style="display:none;">
+      <img src="imgs/num2000_1.png" height="200" width="400">
+    </div>
+    <div id="num2000_2" style="display:none;">
+      <img src="imgs/num2000_2.png" height="200" width="400">
+    </div>
+    <div id="num2000_3" style="display:none;">
+      <img src="imgs/num2000_3.png" height="200" width="400">
+    </div>
+  </div>
+  
+  <div id="num2015">
+    <div id="num2015_1" style="display:none;">
+      <img src="imgs/num2015_1.png" height="200" width="450">
+    </div>
+    <div id="num2015_2" style="display:none;">
+      <img src="imgs/num2015_2.png" height="200" width="450">
+    </div>
+    <div id="num2015_3" style="display:none;">
+      <img src="imgs/num2015_3.png" height="200" width="450">
+    </div>
+    <div id="num2015_4" style="display:none;">
+      <img src="imgs/num2015_4.png" height="200" width="450">
+    </div>
+  </div>
+    <!-- <p>335,689,1031</p> -->
+
+</div><!-- #webgl_wrapper -->
+
+
+
+  <div id="nextBtn">
+    <a href="#start"><span id="sankaku"></span></a>
+  </div>
+
+  <div id='dammy' style="height:100%;"></div>
+  <div id="start" style="display:none;"><a href="#end"><p><img src="imgs/movie.png" width="30" alt="">End Roll</p></a></div>
+
+  <div id="endRoll" class="close">
+      <ul id="nameList"><div class="whName">世界遺産 - 1,031件 -<br>(2015年7月現在)</div></ul>
+      <div id="endMessage">
+        <div>世界遺産、それはこの星の宝。</div>
+        <div>悠久の時を超え、<br>
+          今を生きる私たちに、<br>
+          この星の美しさを教えてくれる。</div>
+        <div>今回の作品を通して、<br>
+          世界遺産に興味をもってくれる人が、<br>
+          少しでも増えることを願っています。</div>
+      </div>
+  </div>
+  
+  <div id="end" style="display:none;"><p>END</p></div>
+
+
+  <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script type="text/javascript" src="js/main.js"></script>
+  <script type="text/javascript" src="js/three.min.js"></script>
+  <script type="text/javascript" src="js/all.min.js"></script>
+
+
+
+  <script>
+    //ブラウザ判定 ieは使えない
+    $(function(){
+
+      browser_name();
+
+      function browser_name() {
+        var userAgent = window.navigator.userAgent.toLowerCase();
+
+        if (userAgent.indexOf("msie") > -1 || userAgent.indexOf("trident/7.0") > -1) {
+          $('#nextBtn,#endRoll,#start,#dammy,#end').remove();
+
+          nowebgl = document.createElement("div");
+          nowebgl.innerHTML = "<h1>The exprerience of WebGL世界遺産 requires WebGL.<br>Please upgrade your browser to the latest <a href='http://www.mozilla.org/firefox' target='_blank'>Firefox</a> or <a href='http://www.google.com/chrome' target='_blank'>Chrome</a>.</h1>";
+          nowebgl.className = "nowebgl";
+          document.body.appendChild(nowebgl);
+
+          $(window).keydown(function(event) {
+              if (event.preventDefault) {
+                  event.preventDefault();
+              }
+              event.returnValue = false;
+          });
+
+          return;
+        }else{
+            // intro.js
+            $(function(){
+                introJs().start();
+            });
+        }
+      }
+    });
+
+    //introjs再表示
+    $('#introjs').on('click', function(){
+      $(function(){
+          introJs().start();
+      });
+    });
+
+
+    //huluボタン
+    $('#hulu').hover(
+      function(){
+        if($('.balloon .photo').css('display') == 'block'){
+          $(this).attr('style', 'opacity:0.8;');
+        }
+      },
+      function(){
+        if($('.balloon .photo').css('display') == 'block'){
+          $(this).attr('style', 'opacity:1.0;');
+        }
+    });
+
+    $('#hulu').on('click', function(){
+      if($('.balloon .photo').css('display') == 'block'){
+        $('.balloon .photo').attr('style', 'display:none;');
+        $('#hulu').attr('style', 'opacity:0.3;');
+        // $('#hulu').off('click');
+      }else{
+        $('.balloon .photo').attr('style', 'display:block;');
+        $('#hulu').attr('style', 'opacity:1.0;');
+      }
+    });
+
+
+
+    function sound_hulu(){
+      document.getElementById("sound-file2").play();
+    }
+
+    // BGMボタン
+    var audio = document.getElementById("bgm");
+    var bgm_btn = document.getElementById("bgm_btn");
+
+    // window.window.onload = init;
+    // function init(){
+    //   audio.play();
+    //   audio.volume = 0.1;
+    //   bgm_btn.className = 'open';
+    //   $(this).attr('src', $(this).attr('src').replace('_off.png', '_on.gif'));
+    // }
+
+    bgm_btn.addEventListener("click", function(){
+      if(audio.paused){
+        audio.play();
+        audio.volume = 1.0;
+        audio.loop = true;
+        bgm_btn.className = 'open';
+        $(this).attr('src', $(this).attr('src').replace('_off', '_on'));
+      }else{
+        audio.pause();
+        bgm_btn.className = '';
+        $(this).attr('src', $(this).attr('src').replace('_on', '_off'));
+      }
+    }, false);
+
+
+
+    //自動スクロール（エンドロール）
+    var endRoll_bgm1 = document.getElementById("endRoll_bgm1");
+    var endRoll_bgm2 = document.getElementById("endRoll_bgm2");
+
+      $(function () {
+         $('a[href^=#]').click(function(event) {
+            if($('#endRoll').hasClass('open')){
+              audio.pause();
+              endRoll_bgm1.play();
+              endRoll_bgm1.volume = 0.8;
+              setTimeout(function(){
+                endRoll_bgm2.play();
+                endRoll_bgm2.volume = 0.5;
+              },104000);
+              var speed = 452000;
+              var href= $(this).attr("href");
+              var target = $(href == "#" || href == "" ? 'html' : href);
+              var position = target.offset().top;
+              $('body,html').animate({scrollTop:position}, speed, 'linear').delay(5000).queue(function(){
+                window.open('about:blank','_self').close();
+              });
+
+              return false;
+              
+            }
+         });
+      });
+
+
+    //nextBtn
+      $(function () {
+        $('a[href^=#]').click(function() {
+          if($('#endRoll').hasClass('close')){
+            $('html,body').animate({scrollTop: $(this).offset().top}, 1500);
+
+                $('#start, #end').fadeIn("slow");
+
+                if ($('#endRoll').hasClass('close')) {
+                  $('#endRoll').removeClass("close");
+                  $('#endRoll').addClass("open");
+                };
+                $('#nextBtn').fadeOut("slow");
+
+                setTimeout(function(){
+                  $('#webgl_wrapper').fadeOut("slow");
+                },1000);
+          }
+        });
+      });
+    
+
+
+
+
+// ===================================================
+// webgl
+// ===================================================
+
+    if(!Detector.webgl){
+      Detector.addGetWebGLMessage();
+    } else {
+
+      var years = ['1990','2000','2015'];
+      var container = document.getElementById('container');
+      var globe = new DAT.Globe(container);
+
+      console.log(globe);
+      var i, tweens = [];
+      
+      var settime = function(globe, t) {
+        return function() {
+          new TWEEN.Tween(globe).to({time: t/years.length},500).easing(TWEEN.Easing.Cubic.EaseInOut).start();
+          var y = document.getElementById('year'+years[t]);
+          if (y.getAttribute('class') === 'year active') {
+            return;
+          }
+          var yy = document.getElementsByClassName('year');
+          for(i=0; i<yy.length; i++) {
+            yy[i].setAttribute('class','year');
+          }
+          y.setAttribute('class', 'year active');
+        };
+      };
+      
+      for(var i = 0; i<years.length; i++) {
+        var y = document.getElementById('year'+years[i]);
+        y.addEventListener('mouseover', settime(globe,i), false);
+        console.log("years.length"+years.length);
+      }
+      
+      var xhr;
+      TWEEN.start();
+      
+
+      xhr = new XMLHttpRequest();
+      xhr.open('GET', 'data.json', true);
+      xhr.onreadystatechange = function(e) {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            var data = JSON.parse(xhr.responseText);
+            window.data = data;
+            console.log(data);
+            for (i=0;i<data.length;i++) {
+              globe.addData(data[i][1], {format: 'magnitude', name: data[i][0], animated: true});
+                console.log("for文で回しているdata.length: " + data.length);
+            }
+
+            globe.createPoints();
+            settime(globe,0)();
+            globe.animate();
+            
+            document.body.style.backgroundImage = 'none';
+          }
+        }
+      };
+      xhr.send(null);
+    }
+
+
+
+  </script>
+
+  </body>
+
+</html>

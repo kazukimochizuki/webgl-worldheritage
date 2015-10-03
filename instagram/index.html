@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<title>セカイサグラム</title>
+	<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.18.1/build/cssreset/cssreset-min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+	<style>
+	.cf{
+		/* For modern browsers */
+		.cf:before,
+		.cf:after {
+		    content:"";
+		    display:table;
+		}
+		.cf:after {
+		    clear:both;
+		}
+		/* For IE 6/7 (trigger hasLayout) */
+		.cf {
+		    zoom:1;
+		}
+	}
+
+	#title{
+		width: 100%;
+		height: 400px;
+		text-align: center;
+	}
+
+	#container{
+		width: 1000px;
+		position: relative;
+		text-align: center;
+		margin: 0 auto;
+	}
+	#main{
+		width: 100%;
+	}
+
+	ul{
+		width: 980px;
+		margin: 0 auto;
+	}
+	ul li{
+		list-style: none;
+		float: left;
+		margin-right: 10px;
+		margin-bottom: 10px;
+		width: 320px;
+		height: 320px;
+	}
+	ul li:nth-child(3n){
+		margin-right: 0;
+	}
+
+	#next{
+		width: 100%;
+		text-align: center;
+	}
+	button{
+		margin-top: 100px;
+		width: 320px;
+		height: 50px;
+		font-size: 2rem;
+		border-style: none;
+	}
+	footer{
+		position: relative;
+		width: 100%;
+		height: 200px;
+		text-align: center;
+	}
+	footer small{
+		position:absolute;
+		left:50%;
+		-moz-transform:translate(-50%, 0%);
+		-webkit-transform:translate(-50%, 0%);
+		-o-transform:translate(-50%, 0%);
+		-ms-transform:translate(-50%, 0%);
+		transform:translate(-50%, 0%);
+		bottom: 50px;
+	}
+
+
+	</style>
+</head>
+<body>
+<!-- http://idotdesign.net/blog/web/js/instafeed/ -->
+<div id="title"><img src="title.png" height="400" width="772" alt=""></div>
+
+<div id="container">
+	<div id="main">
+		<ul id="instafeed"></ul>
+	</div>
+	<div id="next">
+		<button type="button" id="load-more" class="btn btn-primary">NEXT</button>
+	</div>
+</div>
+
+<footer>
+	<small>&copy; 2015 Mochizuki Kazuki Allrights Reserved.</small>
+</footer>
+
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="js/instafeed.js"></script>
+
+<script>
+
+$(document).ready(function() {
+	var loadButton = document.getElementById('load-more');
+    var feed = new Instafeed({
+
+    	after: function() {
+			// disable button if no more results to load
+			if (!this.hasNext()) {
+			  loadButton.setAttribute('disabled', 'disabled');
+			}
+		},
+
+        get: 'tagged', //ハッシュタグから取得
+        tagName: 'worldheritage', //好きなハッシュタグを設定
+        sortBy:'random', //並び順をランダムに
+        links: true , //画像リンク取得
+        limit: 50, //取得する画像数を設定
+        resolution: 'low_resolution', //画像サイズを設定
+        template: '<li><a href="{{link}}"><img src="{{image}}" target="_blank" /></a></li>',
+        clientId: 'e167c414355641e385229b76371dc197' //Instagram DevelopersのクライアントID
+    });
+
+    // bind the load more button
+	loadButton.addEventListener('click', function() {
+	  feed.next();
+	});
+
+    feed.run();
+});
+
+
+
+
+</script>
+
+</body>
+</html>
+
